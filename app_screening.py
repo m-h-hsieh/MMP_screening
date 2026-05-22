@@ -6,12 +6,12 @@ import toml
 import os
 
 st.set_page_config(
-    page_title="TYRA MMP 2025 init",
+    page_title="TYRA MMP 2026 Mentor Screening: Stage 1",
     page_icon="⛵️",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
-        'About': """Learn more about the Project TYRA: https://linktr.ee/projecttyra
+        'About': """Learn more about the Project TYRA: https://www.projecttyra.org/
 
 If you find this work valuable, please star our GitHub repository:
 https://github.com/ChenHsieh/MMP_screening
@@ -19,10 +19,10 @@ https://github.com/ChenHsieh/MMP_screening
 """
     }
 )
-st.title('Project TYRA - Mentor Dashboard 2025 initial profile review')
+st.title('Project TYRA - Mentor Dashboard 2026 initial profile review')
 
 st.markdown("""
-Thank you for participating as a mentor in the TYRA MMP 2025 program. This dashboard allows you to review the profiles of mentees who have expressed interest in working with you. Please follow the instructions below to begin the review process.
+Thank you for participating as a mentor in the TYRA MMP 2026 program. This dashboard allows you to review the profiles of mentees who have expressed interest in working with you. Please follow the instructions below to begin the review process.
 """)
 
 st.markdown("""
@@ -84,17 +84,17 @@ display_columns = [
     "專業領域",
 
     "主要申請系所所在國家",
-    "欲申請學校",
-    "欲申請系所/program",
+    "欲申請的學校、系所和學程",
+    #"欲申請系所/program",
 
 
     "欲尋求之協助/建議(至多三個)",
     "請問您目前準備進度為何？是否已經完成選校？",
-    "提供簡歷與相關資料",
-    "是否已經參加留學國的語文程度測驗？",
-    "目前是否已開始聯繫請求推薦信。",
+    "提供個人簡歷與相關資料",
+    "是否已完成申請國家／學校要求的語言能力測驗？",
+    "是否已開始聯繫推薦人並準備推薦信。",
 
-    "請詳述申請留學之動機以及參加 MMP之動機",
+    "請詳述申請海外研究所與參加 MMP 之動機",
 
     "任何公開資訊 （選填）",
     "是否為家族中第一代高等教育子女（選填）",
@@ -102,9 +102,9 @@ display_columns = [
     "學術領域外相關特殊專長、經驗或成就（選填）",
     "家人、伴侶等狀態（選填）",
     "目前的生涯規劃，或主要申請目的與動機（選填）",
-    "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望導師知道的（選填）",
+    "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望讓導師知道（選填）",
 
-    "電子郵件地址",
+    "E-mail",
     "其餘聯絡方式 (非必填)",
 ]
 
@@ -224,8 +224,8 @@ if viewing_mode == "Single Mentee Info":
         st.subheader("申請目標")
         goal_columns = [
             "主要申請系所所在國家",
-            "欲申請學校",
-            "欲申請系所/program",
+            "欲申請的學校、系所和學程",
+            # "欲申請系所/program",
         ]
         for column in goal_columns:
             if (pd.isna(current_mentee[column]).any()):
@@ -233,8 +233,8 @@ if viewing_mode == "Single Mentee Info":
             st.caption(column)
             st.write(current_mentee[column].values[0])
 
-        st.subheader("申請留學之動機以及參加 MMP之動機")
-        current_mentee["請詳述申請留學之動機以及參加 MMP之動機"].values[0]
+        st.subheader("申請海外研究所與參加 MMP 之動機")
+        current_mentee["請詳述申請海外研究所與參加 MMP 之動機"].values[0]
 
     with col2:
         st.subheader("基本資料")
@@ -246,9 +246,9 @@ if viewing_mode == "Single Mentee Info":
         st.subheader("目前申請準備進度")
         progress_columns = ["欲尋求之協助/建議(至多三個)",
                             "請問您目前準備進度為何？是否已經完成選校？",
-                            "提供簡歷與相關資料",
-                            "是否已經參加留學國的語文程度測驗？",
-                            "目前是否已開始聯繫請求推薦信。",
+                            "提供個人簡歷與相關資料",
+                            "是否已完成申請國家／學校要求的語言能力測驗？",
+                            "是否已開始聯繫推薦人並準備推薦信。",
                             ]
         for column in progress_columns:
             if (pd.isna(current_mentee[column]).any()):
@@ -263,7 +263,7 @@ if viewing_mode == "Single Mentee Info":
         "學術領域外相關特殊專長、經驗或成就（選填）",
         "家人、伴侶等狀態（選填）",
         "目前的生涯規劃，或主要申請目的與動機（選填）",
-        "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望導師知道的（選填）",
+        "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望讓導師知道（選填）",
         "任何公開資訊 （選填）", ]
     for column in background_columns:
         if (pd.isna(current_mentee[column]).any()):
@@ -273,7 +273,7 @@ if viewing_mode == "Single Mentee Info":
 
     st.subheader("聯絡方式")
     contact_columns = [
-        "電子郵件地址",
+        "E-mail",
         "其餘聯絡方式 (非必填)",
     ]
     for column in contact_columns:
@@ -302,14 +302,14 @@ st.header("Finalize your decision")
 
 f"""Please use the following Google form to let us know your decision on the mentees you want to mentor. We will let you know the final result after the matching process is done. 
 
-If the following part is not shown, please use this link: https://forms.gle/kPwwoNA8PKRxoudB9"""
-components.iframe("https://forms.gle/kPwwoNA8PKRxoudB9",
+If the following part is not shown, please use this link: https://forms.gle/MijLUUbjbTxD8cKj6"""
+components.iframe("https://forms.gle/MijLUUbjbTxD8cKj6",
                   width=None, height=1069, scrolling=True)
 
 st.divider()
 
 st.write("""
-Learn more about the Project TYRA: https://linktr.ee/projecttyra
+Learn more about the Project TYRA: https://www.projecttyra.org/
 
 If you find this work valuable, please star our GitHub repository:
 https://github.com/ChenHsieh/MMP_screening
