@@ -7,7 +7,7 @@ import os
 
 st.set_page_config(
     page_title="TYRA MMP 2026 Mentor Screening: Stage 1",
-    page_icon="⛵️",
+    page_icon="🐎",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
@@ -145,7 +145,7 @@ candidate_mentee_number = mentee_response.shape[0]
 if candidate_mentee_number == 0:
     st.warning(
         f"""Thank you for volunteering your time and expertise as a mentor.
-At this moment, we do not have a match for you.
+At this moment, we do not have a match for you. However, you will still be included in the second round of the mentee–mentor matching. We appreciate your continued support of the MMP program.
 
 Please don't be discouraged — your willingness to support the next generation means a lot to us and to the community. We'll notify you if new opportunities arise or when the next round begins.
 
