@@ -28,8 +28,8 @@ Thank you for participating as a mentor in the TYRA 2026 MMP program. This dashb
 st.markdown("""
 ### How to Use This Dashboard
 1. **Enter your verification code**: Please check youremail for your code. Please note that the code is case-sensitive.
-2. **Review Mentee Profiles**: Once entering your code, you will be able to view the detailed profiles of mentees who are interested in working with you. You may compare multiple profiles of mentees by clicking the tab 'Multiple Mentee Info'.
-3. **Make Your Decision**: After reviewing the profiles, please use the Google form at the bottom of the page to submit your final decision on which mentees you would like to mentor.
+2. **Review mentee profiles**: Once entering your code, you will be able to view the detailed profiles of mentees who are interested in working with you. You may compare multiple profiles of mentees by clicking the tab 'Multiple Mentee Info'.
+3. **Make your decision**: After reviewing the profiles, please use the Google form at the bottom of the page to submit your final decision on which mentees you would like to mentor.
 """)
 
 
