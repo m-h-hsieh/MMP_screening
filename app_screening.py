@@ -19,17 +19,17 @@ https://github.com/ChenHsieh/MMP_screening
 """
     }
 )
-st.title('Project TYRA - Mentor Dashboard 2026 initial profile review')
+st.title('Project TYRA - Mentor Dashboard 2026: Initial profile review')
 
 st.markdown("""
-Thank you for participating as a mentor in the TYRA MMP 2026 program. This dashboard allows you to review the profiles of mentees who have expressed interest in working with you. Please follow the instructions below to begin the review process.
+Thank you for participating as a mentor in the TYRA 2026 MMP program. This dashboard allows you to review the profiles of mentees who have expressed interest in working with you. Please follow the instructions below to begin the review process.
 """)
 
 st.markdown("""
 ### How to Use This Dashboard
-1. **Enter your verification code**: You received this code via email. Please note that it is case-sensitive.
-2. **Review Mentee Profiles**: After entering your code, you will be able to see the profiles of mentees who are interested in working with you. You can view detailed information and compare multiple profiles.
-3. **Make Your Decision**: Once you have reviewed the profiles, please use the Google form at the bottom of the page to submit your final decision on which mentees you would like to mentor.
+1. **Enter your verification code**: Please check youremail for your code. Please note that the code is case-sensitive.
+2. **Review Mentee Profiles**: Once entering your code, you will be able to view the detailed profiles of mentees who are interested in working with you. You may compare multiple profiles of mentees by clicking the tab 'Multiple Mentee Info'.
+3. **Make Your Decision**: After reviewing the profiles, please use the Google form at the bottom of the page to submit your final decision on which mentees you would like to mentor.
 """)
 
 
@@ -145,7 +145,7 @@ candidate_mentee_number = mentee_response.shape[0]
 if candidate_mentee_number == 0:
     st.warning(
         f"""Thank you for volunteering your time and expertise as a mentor.
-At this moment, no mentees have selected you for this round.
+At this moment, we do not have a match for you.
 
 Please don't be discouraged — your willingness to support the next generation means a lot to us and to the community. We'll notify you if new opportunities arise or when the next round begins.
 
