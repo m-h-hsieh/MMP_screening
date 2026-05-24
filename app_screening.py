@@ -147,7 +147,7 @@ if candidate_mentee_number == 0:
         f"""Thank you for volunteering your time and expertise as a mentor.
 At this moment, we do not have a match for you. However, you will still be included in the second round of the mentee–mentor matching. We appreciate your continued support of the MMP program.
 
-We understand this may be disappointing. Your willingness to support the next generation means a lot to us and to the community. We'll notify you if new opportunities arise or when the next round begins.
+We understand that this may be disappointing. Your willingness to support the next generation means a lot to us and to the community. We'll notify you if new opportunities arise or when the next round begins.
 
 Stay tuned, and thank you again for being part of this journey.""")
     st.stop()
