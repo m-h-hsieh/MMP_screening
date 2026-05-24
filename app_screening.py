@@ -292,8 +292,11 @@ elif viewing_mode == "Multiple Mentee Info":
     st.dataframe(
         mentee_response.loc[
             mentee_response["中文姓名"].isin(options), display_columns].set_index("中文姓名").transpose(),
+        column_config={
+        "_index": st.column_config.Column("", width="medium"),
+        },
         height=696,
-        use_container_width=True
+        width='stretch'
     )
 st.markdown("[go back to top](#know-your-mentee-better)")
 st.divider()
@@ -303,8 +306,7 @@ st.header("Finalize your decision")
 f"""Please use the following Google form to let us know your decision on the mentees you want to mentor. We will let you know the final result after the matching process is done. 
 
 If the following part is not shown, please use this link: https://forms.gle/MijLUUbjbTxD8cKj6"""
-components.iframe("https://forms.gle/MijLUUbjbTxD8cKj6",
-                  width=None, height=1069, scrolling=True)
+st.iframe("https://forms.gle/MijLUUbjbTxD8cKj6", height=1069, width="stretch")
 
 st.divider()
 
