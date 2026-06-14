@@ -130,7 +130,7 @@ elif (mentor_verification_code in mentors_table.index):
     )
 else:
     st.warning(
-        f"Oops! We cannot find any results for the current input. Please check your verification code.")
+        f"Oops! We cannot find any results for the current input. Please check your verification code or contact via email for support.")
     st.stop()
 
 mentor_name = mentors_table.loc[mentor_verification_code, "combined_mentor_id"]
