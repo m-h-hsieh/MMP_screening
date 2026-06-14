@@ -5,12 +5,12 @@ import requests
 import time
 
 st.set_page_config(
-    page_title="TYRA MMP 2025 round 1",
-    page_icon="⛵️",
+    page_title="TYRA MMP 2026 round 1",
+    page_icon="🐎",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
-        'About': """Learn more about the Project TYRA: https://linktr.ee/projecttyra
+        'About': """Learn more about the Project TYRA: https://www.projecttyra.org/
 
 If you find this work valuable, please star our GitHub repository:
 https://github.com/ChenHsieh/MMP_screening
@@ -18,7 +18,7 @@ https://github.com/ChenHsieh/MMP_screening
 """
     }
 )
-st.title('Project TYRA - Mentor Dashboard 2025 matching confirmation (first stage)')
+st.title('Project TYRA - Mentor Dashboard 2026 matching confirmation (first stage)')
 
 
 st.markdown("""
@@ -92,17 +92,17 @@ display_columns = [
     "專業領域",
 
     "主要申請系所所在國家",
-    "欲申請學校",
-    "欲申請系所/program",
+    "欲申請的學校、系所和學程",
+    #"欲申請系所/program",
 
 
     "欲尋求之協助/建議(至多三個)",
     "請問您目前準備進度為何？是否已經完成選校？",
-    "提供簡歷與相關資料",
-    "是否已經參加留學國的語文程度測驗？",
-    "目前是否已開始聯繫請求推薦信。",
+    "提供個人簡歷與相關資料",
+    "是否已完成申請國家／學校要求的語言能力測驗？",
+    "是否已開始聯繫推薦人並準備推薦信。",
 
-    "請詳述申請留學之動機以及參加 MMP之動機",
+    "請詳述申請海外研究所與參加 MMP 之動機",
 
     "任何公開資訊 （選填）",
     "是否為家族中第一代高等教育子女（選填）",
@@ -110,9 +110,9 @@ display_columns = [
     "學術領域外相關特殊專長、經驗或成就（選填）",
     "家人、伴侶等狀態（選填）",
     "目前的生涯規劃，或主要申請目的與動機（選填）",
-    "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望導師知道的（選填）",
+    "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望讓導師知道（選填）",
 
-    "Email Address",
+    "E-mail",
     "其餘聯絡方式 (非必填)",
 ]
 
@@ -143,8 +143,12 @@ candidate_mentee_number = mentee_response.shape[0]
 
 if candidate_mentee_number == 0:
     st.warning(
-        f"Thank you for volunteering to become a mentor. Unfortunately, during the initial matching process, all available mentees interested in you were assigned to other mentors. Please stay tuned for the second phase of matching, where we hope to connect you with a mentee. Your willingness to support others is greatly appreciated."
-    )
+        f"""Thank you for volunteering your time and expertise as a mentor.
+At this moment, we do not have a match for you. However, you will still be included in the second round of the mentee–mentor matching. We appreciate your continued support of the MMP program.
+
+We understand that this may be disappointing. Your willingness to support the next generation means a lot to us and to the community. We'll notify you if new opportunities arise or when the next round begins.
+
+Stay tuned, and thank you again for being part of this journey.""")
     st.stop()
 elif candidate_mentee_number == 1:
     st.success(
@@ -219,8 +223,8 @@ if viewing_mode == "Single Mentee Info":
         st.subheader("申請目標")
         goal_columns = [
             "主要申請系所所在國家",
-            "欲申請學校",
-            "欲申請系所/program",
+            "欲申請的學校、系所和學程",
+            # "欲申請系所/program",
         ]
         for column in goal_columns:
             if (pd.isna(current_mentee[column]).any()):
@@ -228,8 +232,8 @@ if viewing_mode == "Single Mentee Info":
             st.caption(column)
             st.write(current_mentee[column].values[0])
 
-        st.subheader("申請留學之動機以及參加 MMP之動機")
-        current_mentee["請詳述申請留學之動機以及參加 MMP之動機"].values[0]
+        st.subheader("申請留學之動機以及參加 MMP 之動機")
+        current_mentee["請詳述申請海外研究所與參加 MMP 之動機"].values[0]
 
     with col2:
         st.subheader("基本資料")
@@ -241,9 +245,9 @@ if viewing_mode == "Single Mentee Info":
         st.subheader("目前申請準備進度")
         progress_columns = ["欲尋求之協助/建議(至多三個)",
                             "請問您目前準備進度為何？是否已經完成選校？",
-                            "提供簡歷與相關資料",
-                            "是否已經參加留學國的語文程度測驗？",
-                            "目前是否已開始聯繫請求推薦信。",
+                            "提供個人簡歷與相關資料",
+                            "是否已完成申請國家／學校要求的語言能力測驗？",
+                            "是否已開始聯繫推薦人並準備推薦信。",
                             ]
         for column in progress_columns:
             if (pd.isna(current_mentee[column]).any()):
@@ -258,7 +262,7 @@ if viewing_mode == "Single Mentee Info":
         "學術領域外相關特殊專長、經驗或成就（選填）",
         "家人、伴侶等狀態（選填）",
         "目前的生涯規劃，或主要申請目的與動機（選填）",
-        "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望導師知道的（選填）",
+        "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望讓導師知道（選填）",
         "任何公開資訊 （選填）", ]
     for column in background_columns:
         if (pd.isna(current_mentee[column]).any()):
@@ -268,7 +272,7 @@ if viewing_mode == "Single Mentee Info":
 
     st.subheader("聯絡方式")
     contact_columns = [
-        "Email Address",
+        "E-mail",
         "其餘聯絡方式 (非必填)",
     ]
     for column in contact_columns:
@@ -287,17 +291,19 @@ elif viewing_mode == "Multiple Mentee Info":
     st.dataframe(
         mentee_response.loc[
             mentee_response["中文姓名"].isin(options), display_columns].set_index("中文姓名").transpose(),
+        column_config={
+        "_index": st.column_config.Column("", width="medium"),
+        },
         height=696,
-        use_container_width=True
+        width='stretch'
     )
 
 st.markdown("[go back to top](#know-your-mentee-better)")
 st.divider()
 
 st.write("""
-Find more about TYRA
-https://linktr.ee/projecttyra
+Learn more about the Project TYRA: https://www.projecttyra.org/
 
-If you find this project useful, please consider giving us a star on GitHub:
+If you find this work valuable, please star our GitHub repository:
 https://github.com/ChenHsieh/MMP_screening
 """)
