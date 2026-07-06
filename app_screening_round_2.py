@@ -6,12 +6,12 @@ import toml
 import os
 
 st.set_page_config(
-    page_title="TYRA MMP 2025 init",
-    page_icon="⛵️",
+    page_title="TYRA MMP 2026 Mentor Screening: Stage 2",
+    page_icon="🐎",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
-        'About': """Learn more about the Project TYRA: https://linktr.ee/projecttyra
+        'About': """Learn more about the Project TYRA: https://www.projecttyra.org/
 
 If you find this work valuable, please star our GitHub repository:
 https://github.com/ChenHsieh/MMP_screening
@@ -19,17 +19,17 @@ https://github.com/ChenHsieh/MMP_screening
 """
     }
 )
-st.title('Project TYRA - Mentor Dashboard 2025 2nd initial profile review')
+st.title('Project TYRA - Mentor Dashboard 2026: 2nd Stage Initial profile review')
 
 st.markdown("""
-Thank you for participating as a mentor in the TYRA MMP 2025 program. This dashboard allows you to review the profiles of mentees who have expressed interest in working with you. Please follow the instructions below to begin the review process.
+Thank you for participating as a mentor in the TYRA 2026 MMP program. This dashboard allows you to review the profiles of mentees who have expressed interest in working with you. Please follow the instructions below to begin the review process.
 """)
 
 st.markdown("""
 ### How to Use This Dashboard
-1. **Enter your verification code**: You received this code via email. Please note that it is case-sensitive.
-2. **Review Mentee Profiles**: After entering your code, you will be able to see the profiles of mentees who are interested in working with you. You can view detailed information and compare multiple profiles.
-3. **Make Your Decision**: Once you have reviewed the profiles, please use the Google form at the bottom of the page to submit your final decision on which mentees you would like to mentor.
+1. **Enter your verification code**: Please check your email for your code. Please note that the code is case-sensitive.
+2. **Review mentee profiles**: Once entering your code, you will be able to view the detailed profiles of mentees who are interested in working with you. You may compare multiple profiles of mentees by clicking the tab "Multiple Mentee Info".
+3. **Make your decision**: After reviewing the profiles, please use the Google form at the bottom of the page to submit your final decision on which mentees you would like to mentor.
 """)
 
 
@@ -68,7 +68,7 @@ verification_code_placeholder = ''
 
 display_columns = [
     "志願序",
-    "中文姓名",
+    "IDandName",
 
     "申請年份",
     "欲申請學位",
@@ -83,17 +83,17 @@ display_columns = [
     "專業領域",
 
     "主要申請系所所在國家",
-    "欲申請學校",
-    "欲申請系所/program",
+    "欲申請的學校、系所和學程",
+    #"欲申請系所/program",
 
 
     "欲尋求之協助/建議(至多三個)",
     "請問您目前準備進度為何？是否已經完成選校？",
-    "提供簡歷與相關資料",
-    "是否已經參加留學國的語文程度測驗？",
-    "目前是否已開始聯繫請求推薦信。",
+    "提供個人簡歷與相關資料",
+    "是否已完成申請國家／學校要求的語言能力測驗？",
+    "是否已開始聯繫推薦人並準備推薦信。",
 
-    "請詳述申請留學之動機以及參加 MMP之動機",
+    "請詳述申請海外研究所與參加 MMP 之動機",
 
     "任何公開資訊 （選填）",
     "是否為家族中第一代高等教育子女（選填）",
@@ -101,7 +101,7 @@ display_columns = [
     "學術領域外相關特殊專長、經驗或成就（選填）",
     "家人、伴侶等狀態（選填）",
     "目前的生涯規劃，或主要申請目的與動機（選填）",
-    "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望導師知道的（選填）",
+    "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望讓導師知道（選填）",
 
     "E-mail",
     "其餘聯絡方式 (非必填)",
@@ -126,16 +126,16 @@ else:
     st.stop()
 
 mentor_name = mentors_table.loc[mentor_verification_code, "combined_mentor_id"]
-mentee_list = mentors_table.loc[mentor_verification_code, ["MSc: no_1",
-                                                           "MSc: no_2",
-                                                           "MSc: no_3",
-                                                           "MSc: no_4",
-                                                           "MSc: no_5",
-                                                           "PhD: no_1",
-                                                           "PhD: no_2",
-                                                           "PhD: no_3",
-                                                           "PhD: no_4",
-                                                           "PhD: no_5",]]
+# mentee_list = mentors_table.loc[mentor_verification_code, ["MSc: no_1",
+#                                                            "MSc: no_2",
+#                                                            "MSc: no_3",
+#                                                            "MSc: no_4",
+#                                                            "MSc: no_5",
+#                                                            "PhD: no_1",
+#                                                            "PhD: no_2",
+#                                                            "PhD: no_3",
+#                                                            "PhD: no_4",
+#                                                            "PhD: no_5",]]
 
 
 mentee_response = load_mentee_data(mentor_name)
@@ -144,20 +144,20 @@ candidate_mentee_number = mentee_response.shape[0]
 if candidate_mentee_number == 0:
     st.warning(
         f"""Thank you for volunteering your time and expertise as a mentor.
-At this moment, no mentees have selected you for this round.
+At this moment, we do not have a match for you. However, you will still be included in the second round of the mentee–mentor matching. We appreciate your continued support of the MMP program.
 
-Please don't be discouraged — your willingness to support the next generation means a lot to us and to the community. We'll notify you if new opportunities arise or when the next round begins.
+We understand that this may be disappointing. Your willingness to support the next generation means a lot to us and to the community. We'll notify you if new opportunities arise or when the next round begins.
 
 Stay tuned, and thank you again for being part of this journey.""")
     st.stop()
 elif candidate_mentee_number == 1:
 
     st.success(
-        f"Great! {mentee_response['中文姓名'].values[0]} is interested in you!")
+        f"Great! {mentee_response['IDandName'].values[0]} is interested in you!")
 else:
 
     st.success(
-        f'You are popular! Here are the mentees who are interested in you: {"、".join(mentee_response["中文姓名"].values)}')
+        f'You are popular! Here are the mentees who are interested in you: {"、".join(mentee_response["IDandName"].values)}')
 
 # extract the ranking of the mentor from the mentee response
 mentee_response.loc[mentee_response["希望配對的導師（第五志願）"]
@@ -175,8 +175,8 @@ mentee_response.loc[mentee_response["希望配對的導師（第一志願）"]
 mentee_response = mentee_response[display_columns].sort_values(by="志願序")
 
 if st.checkbox('Show and download raw mentee response'):
-    st.write(mentee_response.set_index("中文姓名"))
-    csv = convert_df(mentee_response.set_index("中文姓名"))
+    st.write(mentee_response.set_index("IDandName"))
+    csv = convert_df(mentee_response.set_index("IDandName"))
     st.download_button(
         label="Download data as CSV",
         data=csv,
@@ -199,18 +199,18 @@ elif candidate_mentee_number > 1:
 
 if viewing_mode == "Single Mentee Info":
     if candidate_mentee_number == 1:
-        mentee_name = mentee_response["中文姓名"].values[0]
+        mentee_name = mentee_response["IDandName"].values[0]
     if candidate_mentee_number > 1:
         mentee_name = st.selectbox(
             'You can select one of the candidate mentees to see their profile.',
-            mentee_response["中文姓名"].values)
-    current_mentee = mentee_response.loc[mentee_response["中文姓名"]
+            mentee_response["IDandName"].values)
+    current_mentee = mentee_response.loc[mentee_response["IDandName"]
                                          == mentee_name]
 
     col1, col2 = st.columns(2)
     with col1:
         st.metric(
-            f"選擇您為第 {current_mentee['志願序'].values[0]} 志願", current_mentee["中文姓名"].values[0])
+            f"選擇您為第 {current_mentee['志願序'].values[0]} 志願", current_mentee["IDandName"].values[0])
         st.write(
             f"申請 {current_mentee['申請年份'].values[0]} {current_mentee['欲申請學位'].values[0]}")
         st.subheader("學歷資料")
@@ -223,8 +223,8 @@ if viewing_mode == "Single Mentee Info":
         st.subheader("申請目標")
         goal_columns = [
             "主要申請系所所在國家",
-            "欲申請學校",
-            "欲申請系所/program",
+            "欲申請的學校、系所和學程",
+            #"欲申請系所/program",
         ]
         for column in goal_columns:
             if (pd.isna(current_mentee[column]).any()):
@@ -232,8 +232,8 @@ if viewing_mode == "Single Mentee Info":
             st.caption(column)
             st.write(current_mentee[column].values[0])
 
-        st.subheader("申請留學之動機以及參加 MMP之動機")
-        current_mentee["請詳述申請留學之動機以及參加 MMP之動機"].values[0]
+        st.subheader("申請海外研究所與參加 MMP 之動機")
+        current_mentee["請詳述申請海外研究所與參加 MMP 之動機"].values[0]
 
     with col2:
         st.subheader("基本資料")
@@ -245,9 +245,9 @@ if viewing_mode == "Single Mentee Info":
         st.subheader("目前申請準備進度")
         progress_columns = ["欲尋求之協助/建議(至多三個)",
                             "請問您目前準備進度為何？是否已經完成選校？",
-                            "提供簡歷與相關資料",
-                            "是否已經參加留學國的語文程度測驗？",
-                            "目前是否已開始聯繫請求推薦信。",
+                            "提供個人簡歷與相關資料",
+                            "是否已完成申請國家／學校要求的語言能力測驗？",
+                            "是否已開始聯繫推薦人並準備推薦信。",
                             ]
         for column in progress_columns:
             if (pd.isna(current_mentee[column]).any()):
@@ -262,7 +262,7 @@ if viewing_mode == "Single Mentee Info":
         "學術領域外相關特殊專長、經驗或成就（選填）",
         "家人、伴侶等狀態（選填）",
         "目前的生涯規劃，或主要申請目的與動機（選填）",
-        "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望導師知道的（選填）",
+        "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望讓導師知道（選填）",
         "任何公開資訊 （選填）", ]
     for column in background_columns:
         if (pd.isna(current_mentee[column]).any()):
@@ -285,14 +285,17 @@ elif viewing_mode == "Multiple Mentee Info":
     st.subheader("Multiple Mentee Info")
     options = st.multiselect(
         'You can select multiple mentees to compare their profiles.',
-        mentee_response["中文姓名"].values
+        mentee_response["IDandName"].values
     )
 
     st.dataframe(
         mentee_response.loc[
-            mentee_response["中文姓名"].isin(options), display_columns].set_index("中文姓名").transpose(),
+            mentee_response["IDandName"].isin(options), display_columns].set_index("IDandName").transpose(),
+        column_config={
+        "_index": st.column_config.Column("", width="medium"),
+        },
         height=696,
-        use_container_width=True
+        width='stretch'
     )
 st.markdown("[go back to top](#know-your-mentee-better)")
 st.divider()
@@ -301,14 +304,14 @@ st.header("Finalize your decision")
 
 f"""Please use the following Google form to let us know your decision on the mentees you want to mentor. We will let you know the final result after the matching process is done. 
 
-If the following part is not shown, please use this link: https://forms.gle/d4VWEZdQ2r2LeLzh6"""
-components.iframe("https://forms.gle/d4VWEZdQ2r2LeLzh6",
+If the following part is not shown, please use this link: https://forms.gle/5R9yT3gat7vLkhQK7"""
+components.iframe("https://forms.gle/5R9yT3gat7vLkhQK7",
                   width=None, height=1069, scrolling=True)
 
 st.divider()
 
 st.write("""
-Learn more about the Project TYRA: https://linktr.ee/projecttyra
+Learn more about the Project TYRA: https://www.projecttyra.org/
 
 If you find this work valuable, please star our GitHub repository:
 https://github.com/ChenHsieh/MMP_screening
