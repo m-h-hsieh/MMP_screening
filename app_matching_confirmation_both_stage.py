@@ -2,31 +2,33 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(
-    page_title="Mentor Dashboard",
-    page_icon="⛵️",
+    page_title="TYRA MMP 2026 summary dashboard",
+    page_icon="🐎",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
-        'About': """Find more about TYRA
-https://linktr.ee/projecttyra
-
-If you find this project useful, please consider giving us a star on GitHub:
+        'About': """Learn more about the Project TYRA: https://www.projecttyra.org/
+        
+If you find this work valuable, please star our GitHub repository:
 https://github.com/ChenHsieh/MMP_screening
 
 """
     }
 )
-st.title('Project TYRA - Mentor Dashboard 2025 Matching Confirmation (Both Stages)')
+st.title('Project TYRA - Mentor Dashboard 2026 matching confirmation (Both Stages)')
 
 st.markdown("""
-Thank you for participating as a mentor in the TYRA MMP 2025 program. This dashboard allows you to review the profiles of mentees who have matched with you during both the first and second stages of the matching process.
+Thank you for participating as a mentor in the TYRA MMP 2026 program. This dashboard allows you to review the profiles of mentees who have matched with you during both the first and second stages of the matching process.
 """)
 
 st.markdown("""
 ### How to Use This Dashboard
-1. **Enter your verification code**: You received this code via email. Please note that it is case-sensitive.
-2. **Review Mentee Profiles**: After entering your code, you will be able to see the profiles of the mentees matched with you in both the first and second stages, allowing you to review detailed information.
-3. **Contact Your Mentees**: Once you have reviewed the profiles, please reach out to the mentees directly and begin the mentoring process according to the commitments you made during the program sign-up.
+
+1. **Enter your verification code**  
+   You should have received this code via email. Please enter it exactly as provided — it is case-sensitive.
+
+2. **Review your match and begin your mentorship**  
+   After verification, you'll be able to view your assigned mentees and proceed with the next steps.
 """)
 
 
@@ -83,17 +85,17 @@ display_columns = [
     "專業領域",
 
     "主要申請系所所在國家",
-    "欲申請學校",
-    "欲申請系所/program",
+    "欲申請的學校、系所和學程",
+    #"欲申請系所/program",
 
 
     "欲尋求之協助/建議(至多三個)",
     "請問您目前準備進度為何？是否已經完成選校？",
-    "提供簡歷與相關資料",
-    "是否已經參加留學國的語文程度測驗？",
-    "目前是否已開始聯繫請求推薦信。",
+    "提供個人簡歷與相關資料",
+    "是否已完成申請國家／學校要求的語言能力測驗？",
+    "是否已開始聯繫推薦人並準備推薦信。",
 
-    "請詳述申請留學之動機以及參加 MMP之動機",
+    "請詳述申請海外研究所與參加 MMP 之動機",
 
     "任何公開資訊 （選填）",
     "是否為家族中第一代高等教育子女（選填）",
@@ -101,14 +103,15 @@ display_columns = [
     "學術領域外相關特殊專長、經驗或成就（選填）",
     "家人、伴侶等狀態（選填）",
     "目前的生涯規劃，或主要申請目的與動機（選填）",
-    "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望導師知道的（選填）",
+    "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望讓導師知道（選填）",
 
-    "Email Address",
+    "E-mail",
     "其餘聯絡方式 (非必填)",
 ]
 
+st.markdown("## Input your verification code")
 mentor_verification_code = st.text_input(
-    'Please input your "verification code" from the email. Please note that the "verification code" is case-sensitive.', verification_code_placeholder).strip()
+    'Please note that the "verification code" is case-sensitive.', verification_code_placeholder).strip()
 
 if (mentor_verification_code == ""):
     st.warning(
@@ -125,7 +128,7 @@ elif (mentor_verification_code in mentors_table.index):
     )
 else:
     st.warning(
-        f"Oops! We cannot find any results for the current input. Please check your verification code.")
+        f"Oops! We cannot find any results for the current input. Please check your verification code or contact via email for support.")
     st.stop()
 
 mentor_name = mentors_table.loc[mentor_verification_code, "combined_mentor_id"]
@@ -221,8 +224,8 @@ if viewing_mode == "Single Mentee Info":
         st.subheader("申請目標")
         goal_columns = [
             "主要申請系所所在國家",
-            "欲申請學校",
-            "欲申請系所/program",
+            "欲申請的學校、系所和學程",
+            #"欲申請系所/program",
         ]
         for column in goal_columns:
             if (pd.isna(current_mentee[column]).any()):
@@ -230,8 +233,8 @@ if viewing_mode == "Single Mentee Info":
             st.caption(column)
             st.write(current_mentee[column].values[0])
 
-        st.subheader("申請留學之動機以及參加 MMP之動機")
-        current_mentee["請詳述申請留學之動機以及參加 MMP之動機"].values[0]
+        st.subheader("申請留學之動機以及參加 MMP 之動機")
+        current_mentee["請詳述申請海外研究所與參加 MMP 之動機"].values[0]
 
     with col2:
         st.subheader("基本資料")
@@ -243,9 +246,9 @@ if viewing_mode == "Single Mentee Info":
         st.subheader("目前申請準備進度")
         progress_columns = ["欲尋求之協助/建議(至多三個)",
                             "請問您目前準備進度為何？是否已經完成選校？",
-                            "提供簡歷與相關資料",
-                            "是否已經參加留學國的語文程度測驗？",
-                            "目前是否已開始聯繫請求推薦信。",
+                            "提供個人簡歷與相關資料",
+                            "是否已完成申請國家／學校要求的語言能力測驗？",
+                            "是否已開始聯繫推薦人並準備推薦信。",
                             ]
         for column in progress_columns:
             if (pd.isna(current_mentee[column]).any()):
@@ -260,7 +263,7 @@ if viewing_mode == "Single Mentee Info":
         "學術領域外相關特殊專長、經驗或成就（選填）",
         "家人、伴侶等狀態（選填）",
         "目前的生涯規劃，或主要申請目的與動機（選填）",
-        "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望導師知道的（選填）",
+        "您認為可能會影響申請過程或結果的身份、背景、經歷，而您希望讓導師知道（選填）",
         "任何公開資訊 （選填）", ]
     for column in background_columns:
         if (pd.isna(current_mentee[column]).any()):
@@ -270,7 +273,7 @@ if viewing_mode == "Single Mentee Info":
 
     st.subheader("聯絡方式")
     contact_columns = [
-        "Email Address",
+        "E-mail",
         "其餘聯絡方式 (非必填)",
     ]
     for column in contact_columns:
@@ -290,16 +293,15 @@ elif viewing_mode == "Multiple Mentee Info":
         mentee_response.loc[
             mentee_response["中文姓名"].isin(options), display_columns].set_index("中文姓名").transpose(),
         height=696,
-        use_container_width=True
+        width='stretch'
     )
 
 st.markdown("[go back to top](#know-your-mentee-better)")
 st.divider()
 
 st.write("""
-Find more about TYRA
-https://linktr.ee/projecttyra
+Learn more about the Project TYRA: https://www.projecttyra.org/
 
-If you find this project useful, please consider giving us a star on GitHub:
+If you find this work valuable, please star our GitHub repository:
 https://github.com/ChenHsieh/MMP_screening
 """)
