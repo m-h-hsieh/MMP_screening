@@ -38,7 +38,7 @@ mentee_response_stage2_sheet_url = st.secrets["mentee_response_stage2_sheet_url"
     '/edit?gid=', '/export?format=csv&gid=')
 mentor_matching_result_both_stage_sheet_url = st.secrets["mentor_matching_result_both_stage_sheet_url"].replace(
     '/edit?gid=', '/export?format=csv&gid=')
-mentors_table = pd.read_csv(mentor_matching_result_both_stage_sheet_url, index_col="verification_code")
+mentors_table = pd.read_csv(mentor_matching_result_both_stage_sheet_url, index_col="verification_code_new")
 
 def load_mentee_data_stage1(mentee_name_list):
     mentee_response_df = pd.read_csv(mentee_response_sheet_url)
@@ -117,14 +117,14 @@ if (mentor_verification_code == ""):
     st.warning(
         f"The input is empty!")
     st.stop()
-elif ((mentor_verification_code in mentors_table["name"].values) |
-      (mentor_verification_code in mentors_table["combined_mentor_id"].values) | (mentor_verification_code in mentors_table["email"].values)):
+elif ((mentor_verification_code in mentors_table["mentor_name"].values) |
+      (mentor_verification_code in mentors_table["email"].values)):
     st.warning(
         f"Please input the verification code instead of personal information. Please check your verification code from the email we sent to you.")
     st.stop()
 elif (mentor_verification_code in mentors_table.index):
     st.success(
-        f"Hola {mentors_table.loc[mentor_verification_code]['name']}! Welcome to the mentor dashboard!"
+        f"Hola {mentors_table.loc[mentor_verification_code]['mentor_name']}! Welcome to the mentor dashboard!"
     )
 else:
     st.warning(
@@ -133,11 +133,11 @@ else:
 
 mentor_name = mentors_table.loc[mentor_verification_code, "combined_mentor_id"]
 
-mentee_name_list_stage1 = mentors_table.loc[mentor_verification_code, ["mentee_name_MSc_s1",
-                                                           "mentee_name_PhD_s1",]].dropna().str.split(" ").explode().tolist()
+mentee_name_list_stage1 = mentors_table.loc[mentor_verification_code, ["stage1_MSc_mentees",
+                                                           "stage1_PhD_mentees",]].dropna().str.split(" ").explode().tolist()
 
-mentee_name_list_stage2 = mentors_table.loc[mentor_verification_code, ["mentee_name_MSc_s2",
-                                                           "mentee_name_PhD_s2",]].dropna().str.split(" ").explode().tolist()
+mentee_name_list_stage2 = mentors_table.loc[mentor_verification_code, ["stage2_MSc_mentees",
+                                                           "stage2_PhD_mentees",]].dropna().str.split(" ").explode().tolist()
 
 mentee_response_stage1 = load_mentee_data_stage1(mentee_name_list_stage1)
 mentee_response_stage2 = load_mentee_data_stage2(mentee_name_list_stage2)
@@ -160,13 +160,11 @@ else:
     st.success(f'Great! {stage1_text} {stage2_text}')
 
 # extract the ranking of the mentor from the mentee response
-# extract the ranking of the mentor from the mentee response
 mentee_response.loc[mentee_response["希望配對的導師（第五志願）"] == mentor_name, "志願序"] = 5
 mentee_response.loc[mentee_response["希望配對的導師（第四志願）"] == mentor_name, "志願序"] = 4
 mentee_response.loc[mentee_response["希望配對的導師（第三志願）"] == mentor_name, "志願序"] = 3
 mentee_response.loc[mentee_response["希望配對的導師（第二志願）"] == mentor_name, "志願序"] = 2
 mentee_response.loc[mentee_response["希望配對的導師（第一志願）"] == mentor_name, "志願序"] = 1
-
 
 # filter the columns to be shown
 mentee_response = mentee_response[display_columns].sort_values(by="志願序")
